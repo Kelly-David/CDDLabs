@@ -5,20 +5,25 @@
 #include <iostream>
 #include <thread>
 
+/*! \global int globalCount
+    \brief This is a global variable to demo mutual exclusion
+*/ 
+int globalCount = 1;
+
 /*! \fn void taskOne(std::shared_ptr<Semaphore> theSemaphore)
     \brief This function will be called from a thread
     \param theSemaphore the the shared semaphore object
     
+    theSemaphore calls wait()
     The function prints to the screen
+    The function updates a global variable
     theSemaphore calls signal()
 */ 
-void taskOne(std::shared_ptr<Semaphore> oneArrived,std::shared_ptr<Semaphore> twoArrived ){
-  std::cout <<"Stuff before rendevous ";
-  std::cout << "...waiting for T2 ";
-  oneArrived->Signal(); //One has arrived at rendevous point
-  twoArrived->Wait();
-  std::cout <<"Stuff after rendevous ";
-  std::cout << "...T1 finished! ";
+void taskOne(std::shared_ptr<Semaphore> mutexLock ){
+  mutexLock->Wait();
+  std::cout <<"Thread1: Critical Stuff\n";
+  globalCount = globalCount + 1;
+  mutexLock->Signal();
 }
 
 /*! \fn void taskTwo(std::shared_ptr<Semaphore> theSemaphore)
@@ -27,14 +32,14 @@ void taskOne(std::shared_ptr<Semaphore> oneArrived,std::shared_ptr<Semaphore> tw
     
     theSemaphore calls wait()
     The function prints to the screen
+    The function updates a global variable
+    theSemaphote call signal()
 */ 
-void taskTwo(std::shared_ptr<Semaphore> oneArrived,std::shared_ptr<Semaphore> twoArrived){
-  std::cout <<"Stuff before rendevous ";
-  std::cout << "...waiting for T1 ";
-  twoArrived->Signal(); //Two has arrived at rendevous point
-  oneArrived->Wait();
-  std::cout <<"Stuff after rendevous ";
-  std::cout << "...T2 finished! ";
+void taskTwo(std::shared_ptr<Semaphore> mutexLock){
+  mutexLock->Wait();
+  std::cout <<"Thread2: Critical stuff\n";
+  globalCount = globalCount - 1;
+  mutexLock->Signal();
 }
 
  /*! \fn int main()
@@ -46,13 +51,15 @@ void taskTwo(std::shared_ptr<Semaphore> oneArrived,std::shared_ptr<Semaphore> tw
 */
 int main(void){
   std::thread threadOne, threadTwo;
-  std::shared_ptr<Semaphore> oneArrived( new Semaphore);
-  std::shared_ptr<Semaphore> twoArrived( new Semaphore);
+  std::shared_ptr<Semaphore> mutexLock( new Semaphore(1));
   /**< Launch the threads  */
-  threadOne=std::thread(taskTwo,oneArrived, twoArrived);
-  threadTwo=std::thread(taskOne,oneArrived, twoArrived);
+  threadOne=std::thread(taskTwo,mutexLock);
+  threadTwo=std::thread(taskOne,mutexLock);
   std::cout << "Launched from the main\n";
   threadOne.join();
   threadTwo.join();
+  std::cout << "Global count should equal 1. Now is equal: ";
+  std::cout << globalCount;
+  std::cout << "\n";
   return 0;
 }
