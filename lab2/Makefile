@@ -6,3 +6,6 @@ Hfiles = Semaphore.h
 
 all: $(Cfiles) $(Hfiles)
 	$(Cc) $(Flags) *.cpp -o $(Exe)
+
+clean: 
+	$(RM) *.o *~
