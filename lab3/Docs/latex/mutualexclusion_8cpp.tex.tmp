@@ -1,0 +1,88 @@
+\hypertarget{mutualexclusion_8cpp}{}\section{mutualexclusion.\+cpp File Reference}
+\label{mutualexclusion_8cpp}\index{mutualexclusion.\+cpp@{mutualexclusion.\+cpp}}
+
+
+A Documented file.  
+
+
+{\ttfamily \#include \char`\"{}Semaphore.\+h\char`\"{}}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$thread$>$}\\*
+Include dependency graph for mutualexclusion.\+cpp\+:
+% FIG 0
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{mutualexclusion_8cpp_ad9c95f8b51059db930df9c958fc72e0e}{task\+One} (std\+::shared\+\_\+ptr$<$ \hyperlink{classSemaphore}{Semaphore} $>$ mutex\+Lock)
+\begin{DoxyCompactList}\small\item\em This function will be called from a thread. \end{DoxyCompactList}\item 
+void \hyperlink{mutualexclusion_8cpp_a33b5427b53508db26a326412126691dd}{task\+Two} (std\+::shared\+\_\+ptr$<$ \hyperlink{classSemaphore}{Semaphore} $>$ mutex\+Lock)
+\begin{DoxyCompactList}\small\item\em This function will be called from a thread. \end{DoxyCompactList}\item 
+int \hyperlink{mutualexclusion_8cpp_a840291bc02cba5474a4cb46a9b9566fe}{main} (void)
+\begin{DoxyCompactList}\small\item\em The eponymous main function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{mutualexclusion_8cpp_a02507408ec1708768f8d50252dc902bf}{global\+Count} = 1
+\begin{DoxyCompactList}\small\item\em This is a global variable to demo mutual exclusion. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+A Documented file. 
+
+
+
+\subsection{Function Documentation}
+\index{mutualexclusion.\+cpp@{mutualexclusion.\+cpp}!main@{main}}
+\index{main@{main}!mutualexclusion.\+cpp@{mutualexclusion.\+cpp}}
+\subsubsection[{\texorpdfstring{main(void)}{main(void)}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{void}]{}
+\end{DoxyParamCaption}
+)}\hypertarget{mutualexclusion_8cpp_a840291bc02cba5474a4cb46a9b9566fe}{}\label{mutualexclusion_8cpp_a840291bc02cba5474a4cb46a9b9566fe}
+
+
+The eponymous main function. 
+
+Forks two threads and a shared semaphore Assigns a task to each thread Then joins both threads with the main thread $<$ Launch the threads \index{mutualexclusion.\+cpp@{mutualexclusion.\+cpp}!task\+One@{task\+One}}
+\index{task\+One@{task\+One}!mutualexclusion.\+cpp@{mutualexclusion.\+cpp}}
+\subsubsection[{\texorpdfstring{task\+One(std\+::shared\+\_\+ptr$<$ Semaphore $>$ mutex\+Lock)}{taskOne(std::shared_ptr< Semaphore > mutexLock)}}]{\setlength{\rightskip}{0pt plus 5cm}void task\+One (
+\begin{DoxyParamCaption}
+\item[{std\+::shared\+\_\+ptr$<$ {\bf Semaphore} $>$}]{the\+Semaphore}
+\end{DoxyParamCaption}
+)}\hypertarget{mutualexclusion_8cpp_ad9c95f8b51059db930df9c958fc72e0e}{}\label{mutualexclusion_8cpp_ad9c95f8b51059db930df9c958fc72e0e}
+
+
+This function will be called from a thread. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em the\+Semaphore} & the the shared semaphore object\\
+\hline
+\end{DoxyParams}
+the\+Semaphore calls wait() The function prints to the screen The function updates a global variable the\+Semaphore calls signal() \index{mutualexclusion.\+cpp@{mutualexclusion.\+cpp}!task\+Two@{task\+Two}}
+\index{task\+Two@{task\+Two}!mutualexclusion.\+cpp@{mutualexclusion.\+cpp}}
+\subsubsection[{\texorpdfstring{task\+Two(std\+::shared\+\_\+ptr$<$ Semaphore $>$ mutex\+Lock)}{taskTwo(std::shared_ptr< Semaphore > mutexLock)}}]{\setlength{\rightskip}{0pt plus 5cm}void task\+Two (
+\begin{DoxyParamCaption}
+\item[{std\+::shared\+\_\+ptr$<$ {\bf Semaphore} $>$}]{the\+Semaphore}
+\end{DoxyParamCaption}
+)}\hypertarget{mutualexclusion_8cpp_a33b5427b53508db26a326412126691dd}{}\label{mutualexclusion_8cpp_a33b5427b53508db26a326412126691dd}
+
+
+This function will be called from a thread. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em the\+Semaphore} & the the shared semaphore object\\
+\hline
+\end{DoxyParams}
+the\+Semaphore calls wait() The function prints to the screen The function updates a global variable the\+Semaphote call signal() 
+
+\subsection{Variable Documentation}
+\index{mutualexclusion.\+cpp@{mutualexclusion.\+cpp}!global\+Count@{global\+Count}}
+\index{global\+Count@{global\+Count}!mutualexclusion.\+cpp@{mutualexclusion.\+cpp}}
+\subsubsection[{\texorpdfstring{global\+Count}{globalCount}}]{\setlength{\rightskip}{0pt plus 5cm}int global\+Count = 1}\hypertarget{mutualexclusion_8cpp_a02507408ec1708768f8d50252dc902bf}{}\label{mutualexclusion_8cpp_a02507408ec1708768f8d50252dc902bf}
+
+
+This is a global variable to demo mutual exclusion. 
+
+int global\+Count 
