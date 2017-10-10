@@ -36,16 +36,15 @@ void taskOne(std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> ba
 
 	globalCount++;
 
-	if (globalCount == n) { barrier.signal();}
-
-	barrier.wait(); //barrier - all threads must wait here
-	std::cout <<"Thread: " << globalCount << "called barrier.wait" << "\n" ;
+	if (globalCount == n) { barrier->Signal();}
 
 	mutexLock->Signal();
 	std::cout <<"Thread: " << globalCount << "released mutexLock" << "\n" ;
 
-	barrier.signal();
+	barrier->Wait(); //barrier - all threads must wait here
+	std::cout <<"Thread: " << globalCount << "called barrier.wait" << "\n" ;
 
+	barrier->Signal();
 }
 
 /*! @fn void creatThread(int n, std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrier)
@@ -71,7 +70,6 @@ void createThreads(int n, std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<
 	for(auto& thread : threads) {
 		thread.join();
 	}
-
 }
 
  /*! @fn int main()
