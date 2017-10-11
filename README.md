@@ -6,7 +6,7 @@ To run:
         
         make
         
-		./ [executable]
+	./ [executable]
 	
 Generate docs: 
 
