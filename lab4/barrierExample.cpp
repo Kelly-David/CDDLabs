@@ -32,19 +32,24 @@ int globalCount = 0;
 void taskOne(std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrier, int n){
 
 	mutexLock->Wait();
-	std::cout <<"Thread: " << globalCount << "acquired mutexLock" << "\n" ;
-
 	globalCount++;
+	std::cout <<"Thread: " << globalCount << " acquired mutexLock" << "\n" ;
 
-	if (globalCount == n) { barrier->Signal();}
+	if (globalCount == n) {
+		std::cout <<"******************************" << "\n" ;
+		std::cout <<"A threads have reached barrier" << "\n" ;
+		std::cout <<"******************************" << "\n" ;
+		barrier->Signal();}
 
 	mutexLock->Signal();
-	std::cout <<"Thread: " << globalCount << "released mutexLock" << "\n" ;
+	std::cout <<"Thread: " << globalCount << " released mutexLock" << "\n" ;
 
 	barrier->Wait(); //barrier - all threads must wait here
-	std::cout <<"Thread: " << globalCount << "called barrier.wait" << "\n" ;
+	std::cout <<"A thread called barrier.wait" << "\n" ;
 
 	barrier->Signal();
+	std::cout <<"A thread called barrier.signal" << "\n" ;
+
 }
 
 /*! @fn void creatThread(int n, std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrier)
@@ -75,7 +80,6 @@ void createThreads(int n, std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<
  /*! @fn int main()
     @brief The main function
     
-    
     Creates two shared semaphore objects
     Calls void function
 */
@@ -90,7 +94,7 @@ int main(void){
 	std::cout << "Launched from the main\n";
 	createThreads(nThreads, mutexLock, barrier);
 
-	std::cout << "\n";
+	std::cout << "Complete \n";
 
 	return 0;
 }

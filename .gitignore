@@ -1,4 +1,10 @@
 *
+
+# Unignore all program files
 !*.cpp
 !*.h
 !Makefile
+!Doxyfile
+
+# Unignore all directories
+!*/
