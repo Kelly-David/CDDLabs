@@ -29,7 +29,7 @@ int globalCount = 0;
     If the count == the number of threads ? barrier.signal() : barrier.wait()
     mutexLock calls signal()
 */ 
-void taskOne(std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrier, int n){
+void taskOne(std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrierA, std::shared_ptr<Semaphore> barrierB, int n){
 
 	mutexLock->Wait();
 	globalCount++;
@@ -39,17 +39,31 @@ void taskOne(std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> ba
 		std::cout <<"******************************" << "\n" ;
 		std::cout <<"All threads have reached barrier" << "\n" ;
 		std::cout <<"******************************" << "\n" ;
-		barrier->Signal();}
+		barrierB->Wait();
+		barrierA->Signal();
+	}
 
 	mutexLock->Signal();
 	std::cout <<"Thread: " << globalCount << " released mutexLock" << "\n" ;
 
-	barrier->Wait(); //barrier - all threads must wait here
+	barrierA->Wait(); //barrier - all threads must wait here
 	std::cout <<"A thread called barrier.wait" << "\n" ;
 
-	barrier->Signal();
+	barrierA->Signal();
 	std::cout <<"A thread called barrier.signal" << "\n" ;
 
+	mutexLock->Wait();
+	std::cout <<"mutexLock Wait" << "\n" ;
+
+	globalCount--;
+	if(globalCount == 0) { 
+		std::cout <<"All threads completed" << "\n" ;
+		barrierA->Wait();
+		barrierB->Signal();
+	}
+	mutexLock->Signal();
+	barrierB->Wait();
+	barrierB->Signal();
 }
 
 /*! @fn void creatThreads(int n, std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrier)
@@ -62,13 +76,13 @@ void taskOne(std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> ba
     forks n thread pushed to vector threads
     joins the vector of threads
 */ 
-void createThreads(int n, std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrier) {
+void createThreads(int n, std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrierA, std::shared_ptr<Semaphore> barrierB) {
 
 	std::vector<std::thread> threads;
 
 	/*! @brief fork n threads */
 	for (int i = 0; i < n; i++) {
-		threads.push_back(std::thread(taskOne, mutexLock, barrier, n));
+		threads.push_back(std::thread(taskOne, mutexLock, barrierA, barrierB, n));
 	}
 
 	/*! @brief loop will parse each thread element inside threads vector */
@@ -88,11 +102,12 @@ int main(void){
 	int nThreads = 5;
 
 	std::shared_ptr<Semaphore> mutexLock( new Semaphore(1));
-	std::shared_ptr<Semaphore> barrier( new Semaphore(0));
+	std::shared_ptr<Semaphore> barrierA( new Semaphore(0));
+	std::shared_ptr<Semaphore> barrierB( new Semaphore(1));
 
 	/**< Launch the threads  */
 	std::cout << "Launched from the main\n";
-	createThreads(nThreads, mutexLock, barrier);
+	createThreads(nThreads, mutexLock, barrierA, barrierB);
 
 	std::cout << "Complete \n";
 
