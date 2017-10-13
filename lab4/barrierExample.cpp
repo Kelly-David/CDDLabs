@@ -37,7 +37,7 @@ void taskOne(std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> ba
 
 	if (globalCount == n) {
 		std::cout <<"******************************" << "\n" ;
-		std::cout <<"A threads have reached barrier" << "\n" ;
+		std::cout <<"All threads have reached barrier" << "\n" ;
 		std::cout <<"******************************" << "\n" ;
 		barrier->Signal();}
 
@@ -52,7 +52,7 @@ void taskOne(std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> ba
 
 }
 
-/*! @fn void creatThread(int n, std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrier)
+/*! @fn void creatThreads(int n, std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrier)
     @brief This function will be called from main
     @param mutexLock the shared semaphore object
     @param barrier the shared semaphore object
