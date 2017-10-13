@@ -1,10 +1,10 @@
 /*! @author David Kelly
     @date:  10/10/2017
-    @updated: 10/10/2017
+    @updated: 13/10/2017
 */
 
 /*! @file barrierExample.cpp
-    @brief A Documented file.
+    @brief A reusable barrier example.
 */
 #include "Semaphore.h"
 #include <iostream>
@@ -17,17 +17,14 @@
 */ 
 int globalCount = 0;
 
-/*! @fn void taskOne(std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrier, int n)
+/*! @fn void taskOne(std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrierA, std::shared_ptr<Semaphore> barrierB, int n)
     @brief This function will be called from a thread
     @param mutexLock the shared semaphore object
-    @param barrier the shared semaphore object
+    @param barrierA a shared semaphore object
+    @param barrierB a shared semaphore object
     @param n the number of threads
     
-    mutexLock calls wait()
-    The function prints to the screen
-    The function updates the globalCount
-    If the count == the number of threads ? barrier.signal() : barrier.wait()
-    mutexLock calls signal()
+    N number of threads will waith at barrierA, then proceed and wait at barrierB
 */ 
 void taskOne(std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrierA, std::shared_ptr<Semaphore> barrierB, int n){
 
@@ -66,13 +63,13 @@ void taskOne(std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> ba
 	barrierB->Signal();
 }
 
-/*! @fn void creatThreads(int n, std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrier)
+/*! @fn void creatThreads(int n, std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrierA, std::shared_ptr<Semaphore> barrierB)
     @brief This function will be called from main
     @param mutexLock the shared semaphore object
     @param barrier the shared semaphore object
     @param n the number of threads
     
-    creates vecotr of type thread
+    creates vector of type thread
     forks n thread pushed to vector threads
     joins the vector of threads
 */ 
@@ -94,7 +91,7 @@ void createThreads(int n, std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<
  /*! @fn int main()
     @brief The main function
     
-    Creates two shared semaphore objects
+    Creates three shared semaphore objects
     Calls void function
 */
 
