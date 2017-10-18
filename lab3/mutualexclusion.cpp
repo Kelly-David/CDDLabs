@@ -1,5 +1,10 @@
+/*! @author David Kelly
+    @date:  10/10/2017
+    @updated: 13/10/2017
+*/
+
 /*! \file mutualexclusion.cpp
-    \brief A Documented file.
+    \brief A mutual exclusion example
 */
 #include "Semaphore.h"
 #include <iostream>

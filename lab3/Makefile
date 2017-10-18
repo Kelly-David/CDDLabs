@@ -1,4 +1,7 @@
-Exe = mutexExe
+# @author: David Kelly
+# @date:   10/10/2017 
+
+Exe = mutex
 Cc = g++
 Flags = -std=c++11 -pthread
 Cfiles = mutualexclusion.cpp Semaphore.cpp
