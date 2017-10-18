@@ -6,7 +6,7 @@ Hfiles = Semaphore.h
 RM = rm
 
 all: $(Cfiles) $(Hfiles)
-	$(Cc) $(Flags) *.cpp -o $(Exe)
+	$(Cc) $(Flags) *.cpp -o $(Exe) $(DEBUGFLAGS)
 
 DEBUG: DEBUGFLAGS = -g -O0
 DEBUG: ALL
