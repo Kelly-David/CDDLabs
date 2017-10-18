@@ -13,7 +13,7 @@
 
 
 /*! @global int globalCount
-    @brief This is a global variable to demo mutual exclusion
+    @brief This is a global variable to demo a reusable barrier
 */ 
 int globalCount = 0;
 
