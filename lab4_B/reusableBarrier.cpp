@@ -1,12 +1,12 @@
 /*! @author David Kelly
     @date:  10/10/2017
-    @updated: 13/10/2017
+    @updated: 23/10/2017
 */
 
 /*! @file barrierExample.cpp
     @brief A reusable barrier example (with Barrier Class).
 */
-#include "Semaphore.h"
+#include "Barrier.h"
 #include <iostream>
 #include <thread>
 #include <vector>
@@ -26,7 +26,15 @@ int globalCount = 0;
     
     N number of threads will waith at barrierA, then proceed and wait at barrierB
 */ 
-void taskOne(std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrierA, std::shared_ptr<Semaphore> barrierB, int n){
+void task (std::shared_ptr<Barrier> barrier) {
+
+	barrier->Phase1();
+	std::cout <<"A thread called barrier->Phase1();" << "\n" ;
+	barrier->Phase2();
+	std::cout <<"A thread called barrier->Phase2();" << "\n" ;
+
+}
+/*void taskOne(std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrierA, std::shared_ptr<Semaphore> barrierB, int n){
 
 	mutexLock->Wait();
 	globalCount++;
@@ -61,7 +69,7 @@ void taskOne(std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> ba
 	mutexLock->Signal();
 	barrierB->Wait();
 	barrierB->Signal();
-}
+}*/
 
 /*! @fn void creatThreads(int n, std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrierA, std::shared_ptr<Semaphore> barrierB)
     @brief This function will be called from main
@@ -73,13 +81,13 @@ void taskOne(std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> ba
     forks n thread pushed to vector threads
     joins the vector of threads
 */ 
-void createThreads(int n, std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrierA, std::shared_ptr<Semaphore> barrierB) {
+void createThreads(int n, std::shared_ptr<Barrier> barrier) {
 
 	std::vector<std::thread> threads;
 
 	/*! @brief fork n threads */
 	for (int i = 0; i < n; i++) {
-		threads.push_back(std::thread(taskOne, mutexLock, barrierA, barrierB, n));
+		threads.push_back(std::thread(task, barrier));
 	}
 
 	/*! @brief loop will parse each thread element inside threads vector */
@@ -98,13 +106,15 @@ void createThreads(int n, std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<
 int main(void){
 	int nThreads = 5;
 
-	std::shared_ptr<Semaphore> mutexLock( new Semaphore(1));
-	std::shared_ptr<Semaphore> barrierA( new Semaphore(0));
-	std::shared_ptr<Semaphore> barrierB( new Semaphore(1));
+	// std::shared_ptr<Semaphore> mutexLock( new Semaphore(1));
+	// std::shared_ptr<Semaphore> barrierA( new Semaphore(0));
+	// std::shared_ptr<Semaphore> barrierB( new Semaphore(1));
+
+	std::shared_ptr<Barrier> barrier(new Barrier(nThreads));
 
 	/**< Launch the threads  */
 	std::cout << "Launched from the main\n";
-	createThreads(nThreads, mutexLock, barrierA, barrierB);
+	createThreads(nThreads, barrier);
 
 	std::cout << "Complete \n";
 

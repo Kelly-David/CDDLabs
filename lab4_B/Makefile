@@ -1,11 +1,11 @@
 # @author: David Kelly
-# @date:   18/10/2017 
+# @date:   23/10/2017 
 
-Exe = reusableBarrier
+Exe = reusableBarrierExample
 Cc = g++
 Flags = -std=c++11 -pthread
-Cfiles = reusableBarrier.cpp Semaphore.cpp
-Hfiles = Semaphore.h
+Cfiles = reusableBarrier.cpp Barrier.cpp Semaphore.cpp 
+Hfiles = Semaphore.h Barrier.h
 RM = rm
 
 all: $(Cfiles) $(Hfiles)
