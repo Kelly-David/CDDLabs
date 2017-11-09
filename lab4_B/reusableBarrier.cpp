@@ -17,14 +17,12 @@
 */ 
 int globalCount = 0;
 
-/*! @fn void taskOne(std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrierA, std::shared_ptr<Semaphore> barrierB, int n)
+/*! @fn void taskOne(std::shared_ptr<Barrier> barrier)
     @brief This function will be called from a thread
-    @param mutexLock the shared semaphore object
-    @param barrierA a shared semaphore object
-    @param barrierB a shared semaphore object
-    @param n the number of threads
+    @param barrier a shared barrier object
+
+    Threads will enter barrier, wait for all threads pass phase1, then proceed to phase2
     
-    N number of threads will waith at barrierA, then proceed and wait at barrierB
 */ 
 void task (std::shared_ptr<Barrier> barrier) {
 
@@ -35,10 +33,9 @@ void task (std::shared_ptr<Barrier> barrier) {
 
 }
 
-/*! @fn void creatThreads(int n, std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrierA, std::shared_ptr<Semaphore> barrierB)
+/*! @fn void creatThreads(int n, std::shared_ptr<Barrier> barrier)
     @brief This function will be called from main
-    @param mutexLock the shared semaphore object
-    @param barrier the shared semaphore object
+    @param barrier the shared barrier object
     @param n the number of threads
     
     creates vector of type thread
@@ -63,13 +60,14 @@ void createThreads(int n, std::shared_ptr<Barrier> barrier) {
  /*! @fn int main()
     @brief The main function
     
-    Creates three shared semaphore objects
+    Creates a shared barrier object
     Calls void function
 */
 
 int main(void){
-	int nThreads = 5;
+    int nThreads = 5;
 
+    /**< Create shared barrier object */
 	std::shared_ptr<Barrier> barrier(new Barrier(nThreads));
 
 	/**< Launch the threads  */
