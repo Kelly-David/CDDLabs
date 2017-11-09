@@ -1,7 +1,10 @@
-/*! @author David Kelly
-    @date:  10/10/2017
-    @updated: 23/10/2017
-*/
+/*
+ * @Author: david.kelly 
+ * @Date: 2017-11-09 11:30:11 
+ * @Last Modified by: david.kelly
+ * @Last Modified time: 2017-11-09 11:30:48
+ */
+
 
 /*! \file Barrier.h
     \brief A implemnetation of a resuable barrier class
