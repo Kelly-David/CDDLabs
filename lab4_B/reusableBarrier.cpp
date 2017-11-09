@@ -34,42 +34,6 @@ void task (std::shared_ptr<Barrier> barrier) {
 	std::cout <<"A thread called barrier->Phase2();" << "\n" ;
 
 }
-/*void taskOne(std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrierA, std::shared_ptr<Semaphore> barrierB, int n){
-
-	mutexLock->Wait();
-	globalCount++;
-	std::cout <<"Thread: " << globalCount << " acquired mutexLock" << "\n" ;
-
-	if (globalCount == n) {
-		std::cout <<"******************************" << "\n" ;
-		std::cout <<"All threads have reached barrier" << "\n" ;
-		std::cout <<"******************************" << "\n" ;
-		barrierB->Wait();
-		barrierA->Signal();
-	}
-
-	mutexLock->Signal();
-	std::cout <<"Thread: " << globalCount << " released mutexLock" << "\n" ;
-
-	barrierA->Wait(); //barrier - all threads must wait here
-	std::cout <<"A thread called barrier.wait" << "\n" ;
-
-	barrierA->Signal();
-	std::cout <<"A thread called barrier.signal" << "\n" ;
-
-	mutexLock->Wait();
-	std::cout <<"mutexLock Wait" << "\n" ;
-
-	globalCount--;
-	if(globalCount == 0) { 
-		std::cout <<"All threads completed" << "\n" ;
-		barrierA->Wait();
-		barrierB->Signal();
-	}
-	mutexLock->Signal();
-	barrierB->Wait();
-	barrierB->Signal();
-}*/
 
 /*! @fn void creatThreads(int n, std::shared_ptr<Semaphore> mutexLock, std::shared_ptr<Semaphore> barrierA, std::shared_ptr<Semaphore> barrierB)
     @brief This function will be called from main
@@ -105,10 +69,6 @@ void createThreads(int n, std::shared_ptr<Barrier> barrier) {
 
 int main(void){
 	int nThreads = 5;
-
-	// std::shared_ptr<Semaphore> mutexLock( new Semaphore(1));
-	// std::shared_ptr<Semaphore> barrierA( new Semaphore(0));
-	// std::shared_ptr<Semaphore> barrierB( new Semaphore(1));
 
 	std::shared_ptr<Barrier> barrier(new Barrier(nThreads));
 
