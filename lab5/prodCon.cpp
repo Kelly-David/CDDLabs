@@ -13,12 +13,12 @@
 #include <iostream>
 #include <thread>
 #include <vector>
+#include <chrono>
 
 
-/*! @global int globalCount
-    @brief This is a global variable to count threads that reached the barrier
+/*! @global int tally[]
+    @brief This is an array to tally the char consumed from the safe buffer
 */ 
-int sharedBuffer = 0;
 bool go = true;
 int tally [26] = {0};
 
@@ -28,10 +28,12 @@ int tally [26] = {0};
 */ 
 void produce(int randNum, std::shared_ptr<SafeBuffer> buffer) {
 	for(int i = 0; i < randNum; ++i) {
-		int n = rand() % 26;
+		int n = std::rand() % 26;
 		char c = (char)(n + 97);
 		buffer->Producer(c);
+		std::cout << "Produced: " << c << std::endl;
 	}
+	buffer->Producer('X');
 }
 
 /*! @fn void consume(std::shared_ptr<Semaphore> buffer, std::shared_ptr<Semaphore> items)
@@ -41,6 +43,8 @@ void produce(int randNum, std::shared_ptr<SafeBuffer> buffer) {
 void consume(std::shared_ptr<SafeBuffer> buffer) {
 	while (go) {
 		char c = buffer->Consumer();
+		std::cout << "Consumed: " << c << std::endl;
+    	std::this_thread::sleep_for(std::chrono::milliseconds(std::rand()%1000));
 		if (c == 'X') { 
 			go = false;
 		}
@@ -65,7 +69,7 @@ void createThreads(int randNum, std::shared_ptr<SafeBuffer> buffer) {
 
 	/*! @brief fork two threads */
 	threads.push_back(std::thread(produce, randNum, buffer));
-	threads.push_back(std::thread(consume, randNum, buffer));
+	threads.push_back(std::thread(consume, buffer));
 	
 
 	/*! @brief loop will parse each thread element inside threads vector */
@@ -85,7 +89,7 @@ int main(void){
 	
 	int randNum = rand() % 60 + 30;
 
-	std::shared_ptr<SafeBuffer> buffer(new SafeBuffer(randNum));	
+	std::shared_ptr<SafeBuffer> buffer(new SafeBuffer(randNum));
 
 	createThreads(randNum, buffer);
 

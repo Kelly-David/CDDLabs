@@ -8,6 +8,7 @@
 /*! \file SafeBuffer.h
     \brief A implemnetation of a safe buffer
 */
+#pragma once
 #include "Semaphore.h"
 #include <stdlib.h>  
 #include <iostream>
@@ -32,7 +33,7 @@ public:
     std::shared_ptr<Semaphore> freeSpaces; 
 
 
-    SafeBuffer(int max);
-    void Producer(char c);
+    SafeBuffer(int);
+    void Producer(char);
     char Consumer();
 };
