@@ -22,8 +22,10 @@
 bool go = true;
 int tally [26] = {0};
 
-/*! @fn void produce(std::shared_ptr<Semaphore> buffer, std::shared_ptr<Semaphore> items)
-    @brief This function will be called from a thread
+/*! @fn void produce(int randNum, std::shared_ptr<SafeBuffer> buffer)
+    @brief This function will produce items to a shared  buffer
+	@param randNum : the number od items to be produced
+	@param buffer : the shared buffer
     
 */ 
 void produce(int randNum, std::shared_ptr<SafeBuffer> buffer) {
@@ -36,8 +38,9 @@ void produce(int randNum, std::shared_ptr<SafeBuffer> buffer) {
 	buffer->Producer('X');
 }
 
-/*! @fn void consume(std::shared_ptr<Semaphore> buffer, std::shared_ptr<Semaphore> items)
-    @brief This function will be called from a thread
+/*! @fn void consume(std::shared_ptr<SafeBuffer> buffer)
+    @brief This function consume items from a shared buffer
+	@param buffer : the shared buffer
     
 */ 
 void consume(std::shared_ptr<SafeBuffer> buffer) {
@@ -56,8 +59,8 @@ void consume(std::shared_ptr<SafeBuffer> buffer) {
 
 /*! @fn void createThreads()
     @brief This function will be called from main
-    @param barrier the shared barrier object
-    @param n the number of threads
+    @param randNum : total items to be produced - passed to producer thread
+    @param buffer : the shared buffer
     
     creates vector of type thread
     forks two threads: one producer; one consumer
@@ -70,7 +73,6 @@ void createThreads(int randNum, std::shared_ptr<SafeBuffer> buffer) {
 	/*! @brief fork two threads */
 	threads.push_back(std::thread(produce, randNum, buffer));
 	threads.push_back(std::thread(consume, buffer));
-	
 
 	/*! @brief loop will parse each thread element inside threads vector */
 	for(auto& thread : threads) {
@@ -81,8 +83,10 @@ void createThreads(int randNum, std::shared_ptr<SafeBuffer> buffer) {
  /*! @fn int main()
     @brief The main function
     
-    Creates two shared semaphore objects
-    Calls void function
+    Generate random number
+	Create shared buffer
+	Call void function
+	Output result
 */
 
 int main(void){
