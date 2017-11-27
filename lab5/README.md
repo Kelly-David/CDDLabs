@@ -1,5 +1,4 @@
-# CDDLabs - Lab5
-## Safe Buffer
+# CDDLabs - Lab5: Safe Buffer
 
 To run:
 
