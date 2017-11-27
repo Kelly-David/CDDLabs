@@ -6,18 +6,18 @@
  */
 
  /*! \file SafeBuffer.cpp
-    \brief A implemnetation of a resuable barrier class
+    \brief A implemnetation of a safe buffer class
 */
 #include "SafeBuffer.h"
 /*! \class SafeBuffer
     \brief A Safe Buffer Implementation
 
-   Uses C++11 features such as mutex and condition variables to implement a reusable barrier
+   Uses C++11 features such as mutex and condition variables to implement a safe buffer
 
 */
 
 /*! \fn void Consumer()
-    \brief This function will be called from a thread
+    \brief This function will be called from a thread. Returns first item in queue.
 */
 char SafeBuffer::Consumer()
 {
@@ -32,7 +32,7 @@ char SafeBuffer::Consumer()
 }
 
 /*! \fn void Produce()
-    \brief This function will be called from a thread
+    \brief This function will be called from a thread. Adds item to end of queue.
 */
 void SafeBuffer::Producer(char c)
 {
