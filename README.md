@@ -15,7 +15,6 @@ Generate docs:
 	doxygen
 
 ## Lab1: Signalling with Semaphores
-[GOTO](tree/master/lab1)
 ## Lab2: Rendevous
 ## Lab3: Mutual Exclusion
 ## Lab4: Barrier
