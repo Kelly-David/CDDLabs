@@ -1,7 +1,7 @@
 # @author: David Kelly
 # @date:   09/11/2017 
 
-Exe = prodCon
+Exe = buff
 Cc = g++
 Flags = -std=c++11 -pthread
 Cfiles = prodCon.cpp Semaphore.cpp SafeBuffer.cpp
