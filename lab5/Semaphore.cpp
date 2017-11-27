@@ -4,14 +4,12 @@
 #include "Semaphore.h"
 /*! \class Semaphore
     \brief A Semaphore Implementation
-
-   Uses C++11 features such as mutex and condition variables to implement Semaphore
+    Uses C++11 features such as mutex and condition variables to implement Semaphore
 
 */
 
 /*! \fn void wait()
     \brief This function will be called from a thread
-    
     This creates a lock, calls wait on m_condition and decrements m_uiCount
 */
 
@@ -24,7 +22,6 @@ void Semaphore::Wait()
 
 /*! \fn void signal()
     \brief This function will be called from a thread
-    
     This creates a lock, increments m_uiCount, calls notify() on m_condition
 */
 void Semaphore::Signal()
