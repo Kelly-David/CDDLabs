@@ -6,7 +6,7 @@
  */
 
 /*! \file SafeBuffer.h
-    \brief A implemnetation of a safe buffer
+    \brief A implementation of a safe buffer
 */
 #pragma once
 #include "Semaphore.h"
@@ -15,9 +15,9 @@
 #include <queue>
 
 /*! \class SafeBuffer
-    \brief A Reusable Barrier Implementation
+    \brief A Safe Buffer Implementation
 
-   Uses C++11 features such as mutex and condition variables to implement a reusable barrier
+   Uses C++11 features such as mutex and condition variables to implement the producer-consumer safe buffer
 
 */
 class SafeBuffer
