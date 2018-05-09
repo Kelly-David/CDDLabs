@@ -1,8 +1,24 @@
-Exe = sigexe
-Cc = g++
-Flags = -std=c++11 -pthread
-Cfiles = signal.cpp Semaphore.cpp
-Hfiles = Semaphore.h
+# David Kelly 
+# 03/10/2017
+# Lab 1 Makefile
 
-all: $(Cfiles) $(Hfiles)
-	$(Cc) $(Flags) *.cpp -o $(Exe)
+EXE = signal
+DOXYGEN = doxygen
+CC=g++
+CFLAGS= -std=c++11 -pthread
+HFILES=Semaphore.h
+CPPFILES=signal.cpp Semaphore.cpp
+
+# All .o files depend on .cpp file with same name
+%.o: %.cpp
+	$(CC) -c -o $@ $< $(CFLAGS) $(DEBUGFLAGS)
+
+ALL: $(HFILES) $(CFILES)
+	$(CC) -o $(EXE) $(CFLAGS) $(CPPFILES) $(DEBUGFLAGS) 
+	
+DEBUG: DEBUGFLAGS = -g -O0
+DEBUG: ALL
+
+# Remove the object files
+CLEAN:
+	rm *.o
