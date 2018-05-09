@@ -3,7 +3,6 @@
 # Lab 1 Makefile
 
 EXE = signal
-DOXYGEN = doxygen
 CC=g++
 CFLAGS= -std=c++11 -pthread
 HFILES=Semaphore.h
@@ -15,7 +14,7 @@ CPPFILES=signal.cpp Semaphore.cpp
 
 ALL: $(HFILES) $(CFILES)
 	$(CC) -o $(EXE) $(CFLAGS) $(CPPFILES) $(DEBUGFLAGS) 
-	
+
 DEBUG: DEBUGFLAGS = -g -O0
 DEBUG: ALL
 
