@@ -9,7 +9,7 @@
  * -----
  * License GPL-3.0
  * -----
- * Description: Simple signal using semaphores
+ * Description: Simple signal/wait using semaphores
  */
 
 #include "Semaphore.h"
