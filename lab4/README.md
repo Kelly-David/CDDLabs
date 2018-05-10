@@ -1,20 +1,22 @@
-# CDDLabs - Lab4: Barrier Class
+# CDDLabs
+Distributed and Concurrent Device Development
 
+## Lab Four
+Demonstration of reusable barrier object.
+
+### Usage
 To run:
-
-        cd lab[number]
         
         make
         
 	./ [executable]
 	
 Generate docs: 
-
-	cd lab[number]
         
 	doxygen
 
-## About
+
+### Sepcification
 Create a reusable barrier class that employs the Semaphore Class. You must  include the Doxygen settings file and a Makefile.
 
 

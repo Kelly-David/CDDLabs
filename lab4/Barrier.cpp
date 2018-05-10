@@ -1,27 +1,25 @@
 /*
- * @Author: david.kelly 
- * @Date: 2017-11-09 11:30:23 
- * @Last Modified by: david.kelly
- * @Last Modified time: 2017-11-09 11:30:49
+ * File: Barrier.cpp
+ * Project: CDD Labs
+ * File Created: Thursday, 9th November 2017 11:30:49 am
+ * Author: David Kelly (c00193216@itcarlow.ie)
+ * -----
+ * Last Modified: Thursday, 10th May 2018 1:32:33 pm
+ * Modified By: David Kelly
+ * -----
+ * License GPL-3.0
+ * -----
+ * Description: Reusable barrier class
  */
 
-
 /*! \file Barrier.cpp
-    \brief A implemnetation of a resuable barrier class
+    \brief A implementation of a resuable barrier class
 */
 #include "Barrier.h"
-/*! \class Barrier
-    \brief A Reusable Barrier Implementation
-
-   Uses C++11 features such as mutex and condition variables to implement a reusable barrier
-
-*/
-//std::shared_ptr<Semaphore> mutexLock( new Semaphore(1)); /*!< Mutex Lock */
-//std::shared_ptr<Semaphore> turnstileA( new Semaphore(0)); /*!< First turnstile - rendevous point */
-//std::shared_ptr<Semaphore> turnstileB( new Semaphore(1)); /*!< Second turnstile - final barrier */ 
-
+ 
 /*! \fn void Phase1()
     \brief This function will be called from a thread
+    \details Indicates that the threads have reached the rendevous point.
 */
 void Barrier::Phase1()
 {

@@ -8,7 +8,7 @@ EXE = barrier
 CC=g++
 CFLAGS= -std=c++11 -pthread
 HFILES=Semaphore.h Barrier.h
-CPPFILES=reusableBarrier.cpp Barrier.cppSemaphore.cpp
+CPPFILES=reusableBarrier.cpp Barrier.cpp Semaphore.cpp
 
 # All .o files depend on .cpp file with same name
 %.o: %.cpp

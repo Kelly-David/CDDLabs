@@ -1,6 +1,3 @@
-/*! \file hellothreads.cpp
-    \brief A Documented file.
-*/
 #include <mutex>
 #include <condition_variable>
 #include <chrono>
