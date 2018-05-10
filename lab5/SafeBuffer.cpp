@@ -1,51 +1,54 @@
 /*
- * @Author: david.kelly 
- * @Date: 2017-11-09 12:51:56 
- * @Last Modified by:   david.kelly 
- * @Last Modified time: 2017-11-09 12:51:56 
+ * File: SafeBuffer.cpp
+ * Project: CDD Labs
+ * File Created: Monday, 27th November 2017 9:24:58 am
+ * Author: David Kelly (c00193216@itcarlow.ie)
+ * -----
+ * Last Modified: Thursday, 10th May 2018 8:48:29 pm
+ * Modified By: David Kelly
+ * -----
+ * License GPL-3.0
+ * -----
+ * Description: Safe buffer
  */
 
- /*! \file SafeBuffer.cpp
-    \brief A implemnetation of a safe buffer class
-*/
 #include "SafeBuffer.h"
-/*! \class SafeBuffer
-    \brief A Safe Buffer Implementation
 
-   Uses C++11 features such as mutex and condition variables to implement a safe buffer
-
+/*! \fn Constructor
+    \brief Buffer size is set to max or 0
 */
+SafeBuffer::SafeBuffer(int max=0){
 
-/*! \fn void Consumer()
-    \brief This function will be called from a thread. Returns first item in queue.
-*/
-char SafeBuffer::Consumer()
-{
-    itemsLock->Wait();
-    bufferLock->Wait();
-    char c = sharedBuffer.front();
-    sharedBuffer.pop();
-    bufferLock->Signal();
-    freeSpaces->Signal();
-    return c;
-
+  lock = std::make_shared<Semaphore>(1);
+  items = std::make_shared<Semaphore>(0);
+  spaces = std::make_shared<Semaphore>(max);
 }
 
-/*! \fn void Produce()
-    \brief This function will be called from a thread. Adds item to end of queue.
+/*! \fn void Producer()
+    \brief This function will be called from a thread. 
+    \details Adds item to the buffer
 */
 void SafeBuffer::Producer(char c)
 {
-    freeSpaces->Wait();
-    bufferLock->Wait();
+    spaces->Wait();
+    lock->Wait();
     sharedBuffer.push(c);
-    itemsLock->Signal();
-    bufferLock->Signal();
+    lock->Signal();
+    items->Signal();
 }
 
-SafeBuffer::SafeBuffer(int max=0){
-
-  bufferLock = std::make_shared<Semaphore>(1);
-  itemsLock = std::make_shared<Semaphore>(0);
-  freeSpaces = std::make_shared<Semaphore>(max);
+/*! \fn void Consumer()
+    \brief This function will be called from a thread.
+    \details Returns first item in the buffer
+*/
+char SafeBuffer::Consumer()
+{
+    char c;
+    items->Wait();
+    lock->Wait();
+    c = sharedBuffer.front();
+    sharedBuffer.pop();
+    lock->Signal();
+    spaces->Signal();
+    return c;
 }
