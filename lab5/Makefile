@@ -1,18 +1,30 @@
-# @author: David Kelly
-# @date:   09/11/2017 
+# David Kelly 
+# 10/10/2017
+# Lab 5 Makefile
+# Commands to  compile source code. 
+# Usage: Type 'make' in project directory
 
-Exe = buff
-Cc = g++
-Flags = -std=c++11 -pthread
-Cfiles = prodCon.cpp Semaphore.cpp SafeBuffer.cpp
-Hfiles = Semaphore.h SafeBuffer.h 
-RM = rm
+EXE = program
+CC=g++
+CFLAGS= -std=c++11 -pthread
+HFILES=Semaphore.h SafeBuffer.h
+CPPFILES=prodCon.cpp SafeBuffer.cpp Semaphore.cpp
 
-all: $(Cfiles) $(Hfiles)
-	$(Cc) $(Flags) *.cpp -o $(Exe) $(DEBUGFLAGS)
+# All .o files depend on .cpp file with same name
+%.o: %.cpp
+	$(CC) -c -o $@ $< $(CFLAGS) $(DEBUGFLAGS)
 
-DEBUG: DEBUGFLAGS = -g -O0
+ALL: $(HFILES) $(CFILES)
+	$(CC) -o $(EXE) $(CFLAGS) $(CPPFILES) $(DEBUGFLAGS) 
+
+DEBUG: DEBUGFLAGS = -g -O0 -Wall
 DEBUG: ALL
 
-clean: 
-	$(RM) *.o *~
+# Generate documentation
+docs: 
+	doxygen doxyfile
+
+# Remove the object files
+CLEAN:
+	rm *.o
+

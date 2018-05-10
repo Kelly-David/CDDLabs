@@ -13,7 +13,7 @@ To run:
 	
 Generate docs: 
         
-	doxygen
+	make docs
 
 
 ### Sepcification
