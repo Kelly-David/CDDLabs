@@ -52,11 +52,16 @@ void taskTwo(std::shared_ptr<Semaphore> theSemaphore){
 int main(void){
   std::thread threadOne, threadTwo;
   std::shared_ptr<Semaphore> semaphore( new Semaphore);
-  /*! Launch the threads  */
+
   threadOne=std::thread(taskTwo,semaphore);
   threadTwo=std::thread(taskOne,semaphore);
-  std::cout << "Launched from main\n";
+
+  std::cout << "Launched from main...\n";
+
   threadOne.join();
   threadTwo.join();
+
+  std::cout << "All threads joined!\n";
+  
   return 0;
 }
