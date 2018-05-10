@@ -1,6 +1,6 @@
 # David Kelly 
 # 10/10/2017
-# Lab 1 Makefile
+# Lab 3 Makefile
 
 EXE = mutex
 CC=g++

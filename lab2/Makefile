@@ -1,6 +1,6 @@
 # David Kelly 
 # 03/10/2017
-# Lab 1 Makefile
+# Lab 2 Makefile
 
 EXE = rendevous
 CC=g++
