@@ -1,18 +1,24 @@
-# @author: David Kelly
-# @date:   10/10/2017 
+# David Kelly 
+# 10/10/2017
+# Lab 1 Makefile
 
-Exe = mutex
-Cc = g++
-Flags = -std=c++11 -pthread
-Cfiles = mutualexclusion.cpp Semaphore.cpp
-Hfiles = Semaphore.h
-RM = rm
+EXE = mutex
+CC=g++
+CFLAGS= -std=c++11 -pthread
+HFILES=Semaphore.h
+CPPFILES=mutualexclusion.cpp Semaphore.cpp
 
-all: $(Cfiles) $(Hfiles)
-	$(Cc) $(Flags) *.cpp -o $(Exe) $(DEBUGFLAGS)
+# All .o files depend on .cpp file with same name
+%.o: %.cpp
+	$(CC) -c -o $@ $< $(CFLAGS) $(DEBUGFLAGS)
+
+ALL: $(HFILES) $(CFILES)
+	$(CC) -o $(EXE) $(CFLAGS) $(CPPFILES) $(DEBUGFLAGS) 
 
 DEBUG: DEBUGFLAGS = -g -O0
 DEBUG: ALL
 
-clean: 
-	$(RM) *.o *~
+# Remove the object files
+CLEAN:
+	rm *.o
+

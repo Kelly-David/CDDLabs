@@ -38,7 +38,7 @@ void taskOne(std::shared_ptr<Semaphore> oneArrived,std::shared_ptr<Semaphore> tw
     \brief Description of void taskTwo function
     \param oneArrived the the shared semaphore object
     \param twoArrived the the shared semaphore object
-    \ Signals to other threads that it has arrived at rendevous point. 
+    \details Signals to other threads that it has arrived at rendevous point. 
 */ 
 void taskTwo(std::shared_ptr<Semaphore> oneArrived,std::shared_ptr<Semaphore> twoArrived){
   std::cout <<"Stuff before rendevous\n";
