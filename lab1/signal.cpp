@@ -17,10 +17,12 @@
 #include <thread>
 
 /*! \fn void taskOne(std::shared_ptr<Semaphore> theSemaphore)
-    \brief This function will be called from a thread. Will always run first. Then semaphore signals other to run.
+    \brief Description of void taskOne function
     \param theSemaphore the the shared semaphore object
+    \details This function will be called from a thread. Will always run first. Then semaphore signals other to run. 
 */ 
 void taskOne(std::shared_ptr<Semaphore> theSemaphore){
+  std::cout <<"Thread 1: ";
   std::cout <<"I ";
   std::cout << "must ";
   std::cout << "print ";
@@ -30,13 +32,15 @@ void taskOne(std::shared_ptr<Semaphore> theSemaphore){
 }
 
 /*! \fn void taskTwo(std::shared_ptr<Semaphore> theSemaphore)
-    \brief This function will be called from a thread. Initially blocked. Waits for signal.
+    \brief Description of void taskTwo function
     \param theSemaphore the the shared semaphore object
+    \details This function will be called from a thread. Initially blocked. Waits for signal.
 */ 
 void taskTwo(std::shared_ptr<Semaphore> theSemaphore){
   /*! Hold the thread for a signal */
   theSemaphore->Wait();
-  std::cout <<"This ";
+  std::cout <<"Thread 2: ";
+  std::cout <<"I ";
   std::cout << "will ";
   std::cout << "appear ";
   std::cout << "second"<<std::endl;
@@ -47,10 +51,10 @@ void taskTwo(std::shared_ptr<Semaphore> theSemaphore){
 */
 int main(void){
   std::thread threadOne, threadTwo;
-  std::shared_ptr<Semaphore> sem( new Semaphore);
+  std::shared_ptr<Semaphore> semaphore( new Semaphore);
   /*! Launch the threads  */
-  threadOne=std::thread(taskTwo,sem);
-  threadTwo=std::thread(taskOne,sem);
+  threadOne=std::thread(taskTwo,semaphore);
+  threadTwo=std::thread(taskOne,semaphore);
   std::cout << "Launched from main\n";
   threadOne.join();
   threadTwo.join();
