@@ -1,18 +1,26 @@
-# @author: David Kelly
-# @date:   23/10/2017 
+# David Kelly 
+# 10/10/2017
+# Lab 4 Makefile
+# Commands to  compile source code. 
+# Usage: Type 'make' in project directory
 
-Exe = reusableBarrierExample
-Cc = g++
-Flags = -std=c++11 -pthread
-Cfiles = reusableBarrier.cpp Barrier.cpp Semaphore.cpp 
-Hfiles = Semaphore.h Barrier.h
-RM = rm
+EXE = barrier
+CC=g++
+CFLAGS= -std=c++11 -pthread
+HFILES=Semaphore.h Barrier.h
+CPPFILES=reusableBarrier.cpp Barrier.cppSemaphore.cpp
 
-all: $(Cfiles) $(Hfiles)
-	$(Cc) $(Flags) *.cpp -o $(Exe) $(DEBUGFLAGS)
+# All .o files depend on .cpp file with same name
+%.o: %.cpp
+	$(CC) -c -o $@ $< $(CFLAGS) $(DEBUGFLAGS)
 
-DEBUG: DEBUGFLAGS = -g -O0
+ALL: $(HFILES) $(CFILES)
+	$(CC) -o $(EXE) $(CFLAGS) $(CPPFILES) $(DEBUGFLAGS) 
+
+DEBUG: DEBUGFLAGS = -g -O0 -Wall
 DEBUG: ALL
 
-clean: 
-	$(RM) *.o *~
+# Remove the object files
+CLEAN:
+	rm *.o
+
