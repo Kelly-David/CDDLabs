@@ -2,7 +2,7 @@
 Distributed and Concurrent Device Development
 
 ## Lab One
-Signalling with Semaphores. A simple signal/wait mechanism usiung semahpores.
+Signalling with Semaphores. A simple signal/wait mechanism using semahpores.
 
 ### Usage
 To run:
