@@ -14,9 +14,8 @@ Generate docs:
         
 	doxygen
 
-## Lab1: Signalling with Semaphores
-## Lab2: Rendevous
-## Lab3: Mutual Exclusion
-## Lab4: Barrier
-## Lab4B: Shared Barrier Object
-## Lab5: Safe Buffer
+- Lab1: Signalling with Semaphores
+- Lab2: Rendevous
+- Lab3: Mutual Exclusion
+- Lab4: Shared Barrier
+- Lab5: Safe Buffer
